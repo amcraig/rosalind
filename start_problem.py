@@ -150,18 +150,18 @@ def {rosalind_id}(file_name):
         and also copies results to clipboard
     \"\"\"
 
-    str_dataset = ""
+    dataset = ""
     result = ""
 
     # If a path to a input file is given, use that
     if file_name:
         with open(file_name, "r") as f:
-            str_dataset = f.read()
-            str_dataset = str_dataset.replace('\\n', '')
+            dataset = f.read()
+            dataset = dataset.replace('\\n', '')
 
     # Else, run the script on the provided sample data
     else:
-        str_dataset = SAMPLE_DATASET
+        dataset = SAMPLE_DATASET
     # May need to do additional dataset cleaning (for instance: newlines)
     # or parse into an ideal data structure for each respective problem.
 
@@ -172,7 +172,9 @@ def {rosalind_id}(file_name):
     # for ease of evaluation on rosalind.info
 
     click.echo(result)
-    with open(f'{{os.path.dirname(__file__)}}/answer.txt', 'w') as f:
+    with open(
+        f'{{os.path.dirname(os.path.abspath(__file__))}}/answer.txt', 'w'
+    ) as f:
         f.write(result)
     pyperclip.copy(result)
 
@@ -180,18 +182,20 @@ def {rosalind_id}(file_name):
 if __name__ == "__main__":
     {rosalind_id}()
 """
+    parent_dir = os.path.dirname(os.path.abspath(__file__))
 
-    if "problems" not in os.listdir(os.path.dirname(__file__)):
+    if "problems" not in os.listdir(parent_dir):
         os.mkdir("problems")
 
     # Create the problem directory if it doesn't exist
-    if rosalind_id not in os.listdir(f"{os.path.dirname(__file__)}/problems/"):
-        os.mkdir(f"{os.path.dirname(__file__)}/problems/{rosalind_id}/")
+    if rosalind_id not in os.listdir(
+        f"{parent_dir}/problems/"
+    ):
+        os.mkdir(f"{parent_dir}/problems/{rosalind_id}/")
 
     # Write the template
     with open(
-        f"{os.path.dirname(__file__)}/problems/{rosalind_id}/{rosalind_id}.py",
-        'w'
+        f"{parent_dir}/problems/{rosalind_id}/{rosalind_id}.py", 'w'
     ) as f:
         f.write(docstring_template)
 

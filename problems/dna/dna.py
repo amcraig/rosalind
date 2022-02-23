@@ -78,7 +78,7 @@ def dna(file_name):
     # for ease of evaluation on rosalind.info
 
     click.echo(result)
-    with open(f'{os.path.dirname(__file__)}/answer.txt', 'w') as f:
+    with open(f'{os.path.dirname(os.path.abspath(__file__))}/answer.txt', 'w') as f:
         f.write(result)
     pyperclip.copy(result)
 
