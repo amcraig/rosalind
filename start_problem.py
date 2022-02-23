@@ -135,7 +135,7 @@ import click
 import os
 import pyperclip
 
-SAMPLE_DATASET = \"{sample_dataset}\"
+SAMPLE_DATASET = \"\"\"{sample_dataset}\"\"\"
 
 
 @click.command()
